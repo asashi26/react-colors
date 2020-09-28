@@ -7,7 +7,7 @@ import { getThemeProps } from '@material-ui/styles';
 const styles = {
   root: {
     backgroundColor: 'blue',
-    height: '100%',
+    height: '100vh',
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'center',
@@ -31,6 +31,9 @@ const styles = {
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 30%)',
     gridGap: '5%',
+    '& a': {
+      textDecoration: 'none',
+    }
   }
 }
 
