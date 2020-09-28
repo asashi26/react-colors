@@ -4,6 +4,7 @@ import Pallete from './components/Pallete'
 import seedColors from './seedColors'
 import {generatePalette} from './colorHelpers'
 import { Palette } from '@material-ui/icons';
+import PaletteList from './components/palette-list'
 
 function App() {
   console.log(generatePalette(seedColors[4]))
@@ -13,7 +14,7 @@ function App() {
   }
   return (
     <Switch>
-      <Route exact path='/' render={() => <h1>Ahoj</h1>} />
+      <Route exact path='/' render={() => <PaletteList palettes={seedColors} />} />
       <Route exact path='/palette/:id' render={(routeProps) => <Pallete 
       palette={
         generatePalette(findPalette(routeProps.match.params.id))
