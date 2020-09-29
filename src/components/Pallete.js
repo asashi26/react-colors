@@ -33,6 +33,7 @@ export default class Pallete extends Component {
         paletteId={id}
         // nebo můžeme zkonstruovat url už tady a poslat hotovou url
         // moreUrl={{`/palette/${id}/${color.id}`}}
+        showLink
       />
     ))
 

@@ -18,7 +18,7 @@ class ColorBox extends Component {
   }
 
   render() {
-    const {name, background, paletteId, id} = this.props
+    const {name, background, paletteId, id, showLink} = this.props
     const {copied} = this.state
 
     return (
@@ -40,9 +40,11 @@ class ColorBox extends Component {
           {/* stop propagation zajišťuje aby se nespustila jiná akce 
           než ten link, aby to i nezkopírovalo barvu jako zbytek color boxu */}
           {/* check relative routes in react router - přístup k informaci kde zrovna jsme / current url */}
-          <Link to={`/palette/${paletteId}/${id}`} onClick={e => e.stopPropagation}>
-            <span className='see-more'>More</span>
-          </Link>
+          {showLink && (
+            <Link to={`/palette/${paletteId}/${id}`} onClick={e => e.stopPropagation}>
+              <span className='see-more'>More</span>
+            </Link>
+          )}
         </div>
       </CopyToClipboard>
     )
