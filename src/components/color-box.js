@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom'
 import './color-box.css'
 import {CopyToClipboard} from 'react-copy-to-clipboard'
 
@@ -36,7 +37,11 @@ class ColorBox extends Component {
             </div>
             <button className='copy-button'>Copy</button>
           </div>
-          <span className='see-more'>More</span>
+          {/* stop propagation zajišťuje aby se nespustila jiná akce 
+          než ten link, aby to i nezkopírovalo barvu jako zbytek color boxu */}
+          <Link to='/' onClick={e => e.stopPropagation}>
+            <span className='see-more'>More</span>
+          </Link>
         </div>
       </CopyToClipboard>
     )
