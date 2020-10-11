@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {Route, Switch} from 'react-router-dom'
 import Pallete from './components/Pallete'
 import SingleColorPalette from './components/single-color-palette'
@@ -8,18 +8,28 @@ import { Palette } from '@material-ui/icons';
 import PaletteList from './components/palette-list'
 import NewPaletteForm from './components/new-palette-form'
 
-function App() {
-  console.log(generatePalette(seedColors[4]))
-
-  const findPalette = (id) => {
-     return seedColors.find(palette => palette.id === id )
+class App extends Component {
+  state = {
+    palettes: seedColors,
   }
+  
+
+   findPalette = (id) => {
+     return this.state.palettes.find(palette => palette.id === id )
+  }
+
+   savePalette = (newPalette) => {
+    this.setState({palettes: [...this.state.palettes, newPalette]})
+  }
+
+  render() {
+    console.log(this.state)
   return (
     <Switch>
       <Route 
         exact 
         path='/palette/new' 
-        render={() => <NewPaletteForm />}
+        render={(routeProps) => <NewPaletteForm savePalette={this.savePalette} {...routeProps} />}
       />
        <Route 
         exact
@@ -28,7 +38,7 @@ function App() {
           <SingleColorPalette 
             colorId={routeProps.match.params.colorId}
             palette={
-              generatePalette(findPalette(routeProps.match.params.paletteId))
+              generatePalette(this.findPalette(routeProps.match.params.paletteId))
             } 
           />
         )} 
@@ -36,7 +46,7 @@ function App() {
       <Route 
         exact 
         path='/' render={(routeProps) => (
-          <PaletteList palettes={seedColors} {...routeProps} />
+          <PaletteList palettes={this.state.palettes} {...routeProps} />
         )} 
       />
       <Route 
@@ -45,7 +55,7 @@ function App() {
         render={(routeProps) => (
           <Pallete 
             palette={
-              generatePalette(findPalette(routeProps.match.params.id))
+              generatePalette(this.findPalette(routeProps.match.params.id))
             } 
           />
         )} 
@@ -55,6 +65,7 @@ function App() {
     //  <Pallete palette={generatePalette(seedColors[4])}/>
     // </div>
   );
+}
 }
 
 export default App;
