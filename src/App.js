@@ -6,6 +6,7 @@ import seedColors from './seedColors'
 import {generatePalette} from './colorHelpers'
 import { Palette } from '@material-ui/icons';
 import PaletteList from './components/palette-list'
+import NewPaletteForm from './components/new-palette-form'
 
 function App() {
   console.log(generatePalette(seedColors[4]))
@@ -15,6 +16,11 @@ function App() {
   }
   return (
     <Switch>
+      <Route 
+        exact 
+        path='/palette/new' 
+        render={() => <NewPaletteForm />}
+      />
        <Route 
         exact
         path='/palette/:paletteId/:colorId'
