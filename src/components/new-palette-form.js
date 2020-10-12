@@ -142,6 +142,14 @@ class NewPaletteForm extends Component {
     console.log(newPalette)
   }
 
+  removeColor = (colorName) => {
+    this.setState({
+      //projede každou barvu v poli a porovná jestli odpovídá podmínce 
+      // když ano vloží ji do nového pole, když ne vynechá ji vrátí mi pole barev které odpovídají podmínce
+      colors: this.state.colors.filter(color => color.name !== colorName)
+    })
+  }
+
   render () {
     console.log(this.state.currentColor)
     const { classes } = this.props;
@@ -236,8 +244,10 @@ class NewPaletteForm extends Component {
          
            {this.state.colors.map(color=> (
              <DraggableColorBox
-             color={color.color}
-             name={color.name}
+                key={color.name}
+                color={color.color}
+                name={color.name}
+                handleClick={() => this.removeColor(color.name)}
               />
            ))}
           
