@@ -6,12 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import {ChromePicker} from 'react-color'
 import { Button } from '@material-ui/core';
-import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator'
 import DraggableColorList from './draggable-color-list';
 import { arrayMove } from 'react-sortable-hoc';
 import PaletteFormNav from './palette-form-nav'
+import ColorPickerForm from './color-picker-form';
 
 const drawerWidth = 400;
 
@@ -79,28 +78,8 @@ class NewPaletteForm extends Component {
   }
   state = {
     open: true,
-    currentColor: 'teal',
     colors: this.props.palettes[0].colors,
-    newColorName: '',
-    
   };
-
-  componentDidMount() {
-    // custom rule will have name 'isPasswordMatch'
-    // The every() method tests whether all elements in the array pass the test
-    // implemented by the provided function. It returns a Boolean value.
-    ValidatorForm.addValidationRule('isColorNameUnique', value => 
-        this.state.colors.every(
-          ({name}) => name.toLowerCase() !== value.toLowerCase()
-        )
-    );
-    ValidatorForm.addValidationRule('isColorUnique', value => 
-        this.state.colors.every(({color}) => color !== this.state.currentColor)
-    );
-    ValidatorForm.addValidationRule('isPaletteUnique', value => 
-        this.props.palettes.every(({paletteName}) => paletteName.toLowerCase() !== value.toLowerCase())
-    );
-}
 
 // Class property syntax tento zápis mi umožňuje používat funkce bez bind => nemusím mít constructor
 // state můžu mít jen v objektu tak jako výše
@@ -112,23 +91,9 @@ class NewPaletteForm extends Component {
     this.setState({ open: false });
   };
 
-  updateCurrentColor = (newColor) => {
-    this.setState({currentColor: newColor.hex})
+  addNewColor = (newColor) => {
+    this.setState({colors: [...this.state.colors, newColor]})
   }
-
-  addNewColor = () => {
-    const newColor = {
-      color: this.state.currentColor,
-      name: this.state.newColorName
-    }
-    this.setState({colors: [...this.state.colors, newColor], newColorName: ''})
-  }
-
-  // jednou nastavuje paletteName a jednou colorName, podle toho co za name mu přijde
-  handleChange = (e) => {
-    this.setState({[e.target.name]: e.target.value})
-  }
-
 
   handleSubmit = (newPaletteName) => {
     const newPalette = {
@@ -138,7 +103,6 @@ class NewPaletteForm extends Component {
     }
     this.props.savePalette(newPalette)
     this.props.history.push('/')
-    console.log(newPalette)
   }
 
   removeColor = (colorName) => {
@@ -213,27 +177,11 @@ class NewPaletteForm extends Component {
             <Button variant='contained' color='secondary' onClick={this.onClearPalette}>Clear Palette</Button>
             <Button variant='contained' color='primary' onClick={this.addRandomColor} disabled={paletteFull}>Random Color</Button>
           </div>
-          <ChromePicker 
-            color={this.state.currentColor} 
-            onChangeComplete={(newColor)=> this.updateCurrentColor(newColor)} 
+          <ColorPickerForm
+           paletteFull={paletteFull} 
+           addNewColor={this.addNewColor}
+           colors={colors}
           />
-          <ValidatorForm onSubmit={this.addNewColor}>
-            <TextValidator
-              value={this.state.newColorName}
-              name='newColorName'
-              onChange={this.handleChange}
-              validators={['required', 'isColorNameUnique', 'isColorUnique']}
-              errorMessages={['Enter a color name', 'Color name must be unique', 'Color already used']}
-            />
-            <Button 
-            variant='contained' 
-            color='primary'
-            style={{backgroundColor: paletteFull ? 'grey' : this.state.currentColor}}
-            type='submit'
-            disabled={paletteFull}
-            >{paletteFull ? 'Palette Full' : 'Add Color'}</Button>
-          </ValidatorForm>
-          
         </Drawer>
         <main
           className={classNames(classes.content, {
