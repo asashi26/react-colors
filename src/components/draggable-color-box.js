@@ -1,8 +1,6 @@
 import React from 'react'
 import {withStyles} from '@material-ui/styles'
 import DeleteIcon from '@material-ui/icons/Delete';
-import classes from '@material-ui/styles'
-import { scale } from 'chroma-js';
 import {SortableElement} from 'react-sortable-hoc'
 
 const styles = {
