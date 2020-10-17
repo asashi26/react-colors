@@ -6,6 +6,7 @@ export default {
     padding: '0.5rem',
     position: 'relative',
     overflow: 'hidden',
+    lineHeight: '1.3',
     '&:hover': {
       cursor: 'pointer',
     }

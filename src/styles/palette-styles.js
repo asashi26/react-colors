@@ -2,7 +2,8 @@ export default {
   palette: {
     height: '97vh',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    lineHeight: '1.3'
   },
   colors: {
     height: '90%'
