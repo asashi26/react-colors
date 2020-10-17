@@ -6,7 +6,6 @@ import Navbar from './navbar';
 import PaletteFooter from './palette-footer';
 import styles from '../styles/palette-styles'
 
-
 class SingleColorPalette extends Component {
   constructor(props) {
     super(props)
