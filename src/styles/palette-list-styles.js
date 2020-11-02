@@ -2,6 +2,16 @@ import sizes from './media-queries'
 import bg from '../bg.svg'
 export default {
   root: {
+    '@global': {
+      //-exit -exit-active mi přidává package react-transition-group
+      '.fade-exit': {
+        opacity: '1',
+      },
+      '.fade-exit-active': {
+        opacity: '0',
+        transition: 'opacity 500ms ease-out'
+      }
+    },
     /* background by SVGBackgrounds.com */
     backgroundColor: '#2D3B88',
     backgroundImage: `URL(${bg})`,
