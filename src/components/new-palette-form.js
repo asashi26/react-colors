@@ -45,7 +45,7 @@ class NewPaletteForm extends Component {
 
   removeColor = (colorName) => {
     this.setState({
-      //projede každou barvu v poli a porovná jestli odpovídá podmínce 
+      //projede každou barvu v poli a porovná jestli odpovídá podmínce
       // když ano vloží ji do nového pole, když ne vynechá ji vrátí mi pole barev které odpovídají podmínce
       colors: this.state.colors.filter(color => color.name !== colorName)
     })
@@ -84,12 +84,12 @@ class NewPaletteForm extends Component {
     const { classes, maxColors, palettes } = this.props;
     const { open, colors } = this.state;
     const paletteFull = colors.length >= maxColors
-    
+
     return (
       <div className={classes.root}>
-        
-        <PaletteFormNav 
-          open={open} 
+
+        <PaletteFormNav
+          open={open}
           palettes={palettes}
           handleSubmit={this.handleSubmit}
           handleDrawerOpen={this.handleDrawerOpen}
@@ -105,7 +105,7 @@ class NewPaletteForm extends Component {
         >
           <div className={classes.drawerHeader}>
             <IconButton onClick={this.handleDrawerClose}>
-               <ChevronLeftIcon /> 
+               <ChevronLeftIcon />
             </IconButton>
           </div>
           <Divider />
@@ -120,7 +120,7 @@ class NewPaletteForm extends Component {
               </Button>
             </div>
             <ColorPickerForm
-            paletteFull={paletteFull} 
+            paletteFull={paletteFull}
             addNewColor={this.addNewColor}
             colors={colors}
             />
@@ -132,11 +132,12 @@ class NewPaletteForm extends Component {
           })}
         >
           <div className={classes.drawerHeader} />
-          <DraggableColorList 
-            colors={colors} 
+          <DraggableColorList
+            colors={colors}
             removeColor={this.removeColor}
             axis='xy'
-            onSortEnd={this.onSortEnd}
+						onSortEnd={this.onSortEnd}
+						distance={20}
           />
         </main>
       </div>
