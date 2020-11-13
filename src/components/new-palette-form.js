@@ -12,6 +12,7 @@ import {arrayMove} from 'react-sortable-hoc'
 import PaletteFormNav from './palette-form-nav'
 import ColorPickerForm from './color-picker-form'
 import styles from '../styles/new-palette-form-styles'
+import seedColors from '../seedColors'
 
 class NewPaletteForm extends Component {
 	static defaultProps = {
@@ -19,7 +20,7 @@ class NewPaletteForm extends Component {
 	}
 	state = {
 		open: true,
-		colors: this.props.palettes[0].colors,
+		colors: seedColors[0].colors,
 	}
 
 	// Class property syntax tento zápis mi umožňuje používat funkce bez bind => nemusím mít constructor
