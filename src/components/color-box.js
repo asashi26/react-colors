@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {withStyles} from '@material-ui/core/styles'
-import styles from '../styles/color-box-styles'
 import classNames from 'classnames'
 import {CopyToClipboard} from 'react-copy-to-clipboard'
+import styles from '../styles/color-box-styles'
 
 class ColorBox extends Component {
 	constructor(props) {

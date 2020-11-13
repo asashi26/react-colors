@@ -35,7 +35,8 @@ export default {
       lineHeight: '30px',
       textTransform: 'uppercase',
       border: 'none',
-      cursor: 'pointer',
+			cursor: 'pointer',
+			textDecoration: 'none',
     },
     [sizes.down('lg')]: {
       width: '25%',

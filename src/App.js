@@ -1,17 +1,18 @@
 import React, {Component} from 'react'
 import {Route, Switch} from 'react-router-dom'
+import {TransitionGroup, CSSTransition} from 'react-transition-group'
+import {generatePalette} from './colorHelpers'
+import seedColors from './seedColors'
 import Pallete from './components/Pallete'
 import SingleColorPalette from './components/single-color-palette'
-import seedColors from './seedColors'
-import {generatePalette} from './colorHelpers'
 import PaletteList from './components/palette-list'
 import NewPaletteForm from './components/new-palette-form'
-import {TransitionGroup, CSSTransition} from 'react-transition-group'
 import Page from './components/page'
 
 class App extends Component {
 	constructor(props) {
 		super(props)
+		this.wrapper = React.createRef();
 		const savedPalettes = JSON.parse(
 			window.localStorage.getItem('palettes')
 		)
@@ -49,9 +50,8 @@ class App extends Component {
 	}
 
 	render() {
-		console.log(this.state)
 		return (
-			<Route
+			<Route ref={this.wrapper}
 				render={({location}) => (
 					<TransitionGroup>
 						<CSSTransition
