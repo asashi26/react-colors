@@ -66,15 +66,25 @@ class NewPaletteForm extends Component {
 		})
 	}
 
+	checkDuplicateColor = (colorName) => {
+		return this.state.colors.some((color) => color.name === colorName)
+	}
+
 	addRandomColor = () => {
 		// Consider: validace aby randomColor už nebyla v naší paletě
 		//pick random color from existing palettes
 		// .flat() když mám array of arrays tak mi je to hodí do jedné array
 		const allColors = this.props.palettes.map((p) => p.colors).flat()
-		// vybere random číslo z délky pole s barvami
-		let rand = Math.floor(Math.random() * allColors.length)
-		// vrátí jeden object s barvou co je na indexu náhodného čísla
-		const randomColor = allColors[rand]
+		let rand
+		let randomColor
+		let isDuplicateColor = true
+		while (isDuplicateColor) {
+			// vybere random číslo z délky pole s barvami
+			rand = Math.floor(Math.random() * allColors.length)
+			// vrátí jeden object s barvou co je na indexu náhodného čísla
+			randomColor = allColors[rand]
+			isDuplicateColor = this.checkDuplicateColor(randomColor.name)
+		}
 		this.setState({
 			colors: [...this.state.colors, randomColor],
 		})

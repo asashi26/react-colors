@@ -12,7 +12,7 @@ import Page from './components/page'
 class App extends Component {
 	constructor(props) {
 		super(props)
-		this.wrapper = React.createRef();
+		this.wrapper = React.createRef()
 		const savedPalettes = JSON.parse(
 			window.localStorage.getItem('palettes')
 		)
@@ -51,7 +51,8 @@ class App extends Component {
 
 	render() {
 		return (
-			<Route ref={this.wrapper}
+			<Route
+				ref={this.wrapper}
 				render={({location}) => (
 					<TransitionGroup>
 						<CSSTransition
@@ -120,6 +121,19 @@ class App extends Component {
 															.id
 													)
 												)}
+											/>
+										</Page>
+									)}
+								/>
+								<Route
+									render={(routeProps) => (
+										<Page>
+											<PaletteList
+												palettes={this.state.palettes}
+												removePalette={
+													this.removePalette
+												}
+												{...routeProps}
 											/>
 										</Page>
 									)}
